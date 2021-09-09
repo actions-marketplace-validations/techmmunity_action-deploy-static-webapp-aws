@@ -1,6 +1,6 @@
-name: 'Deploy Web App to AWS'
-description: 'Deploys a webapp to an AWS s3 bucket and then invalidates the cloudfront entry'
-author: 'Peter Ukonu'
+name: 'Deploy Static Webapp to AWS'
+description: 'Deploys a static webapp to an AWS s3 bucket and then invalidates the cloudfront entry'
+author: 'Techmmunity'
 branding:
   icon: 'arrow-up-circle'
   color: 'blue'
@@ -9,19 +9,18 @@ inputs:
     description: "The build path to deploy to s3"
     required: true
   bucket_name:
-    description: "The AWS S3 bucket you will like to deployt to"
+    description: "The AWS S3 bucket you will like to deploy to"
     required: true
   bucket_key:
     description: "The path of the folder you will to deploy to within the S3 bucket"
-    required: true
-    default: "/"
+    required: false
   distribution_invalidation_path:
     description: "The path in cloudfront to invalidate"
     required: false
     default: "/*"
 outputs:
-    aws-deploy-output:
-        description: 'A json output from AWS on the deployment'
+  aws-deploy-output:
+    description: 'A json output from AWS on the deployment'
 runs:
     using: 'docker'
     image: 'Dockerfile'

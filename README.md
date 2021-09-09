@@ -1,16 +1,36 @@
-# Github Actions - S3 and Cloudfront Invalidation
-This is a simple utility to deploy to AWS S3 bucket and invalidate a cloudfront id. It is that straightforward. See usage below
+# Github Actions - Deploy Static Webapp to S3 and Invalidates Cloudfront
+
+This is a simple utility to deploy an static webapp to AWS S3 bucket and invalidate a cloudfront id. It is that straightforward.
 
 ### Usage:
+
 Just place this in your code underneath your build action within the steps, update the variables and secrets and that is it.
+
 ```yaml
+
+name: "Deploy To S3" #set whatever name you want to your github job
+
+on: # set the events you would like to trigger this job
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: # Build the project
+
       - name: Deploy application to AWS S3 and invalidate cloudfront cache
-        uses: pukonu/action-deploy-webapp-aws@v.1.0
+        uses: techmmunity/action-deploy-static-webapp-aws@1.0.0
         id: deploy
         with:
           build_path: './path/to/build/folder'
           bucket_name: '<AWS BUCKET NAME>'
-          bucket_key: ''
+          bucket_key: '' # Optional
           distribution_invalidation_path: '/*'
         env:
           DISTRIBUTION_ID: '<DISTRIBUTION ID>'
